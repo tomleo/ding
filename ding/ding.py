@@ -9,6 +9,7 @@ import sys
 import time
 import datetime
 
+import notify2
 
 EXIT_MSG = """Invalid arguments: {}\n---------
 $ ding at hh[:mm[:ss]]
@@ -104,6 +105,15 @@ def beep(seconds):
         sys.stdout.flush()
         time.sleep(WAIT_BEEPS)
 
+def vbeep(seconds):
+    """Make visual beep/notification"""
+    n = notify2.Notification(
+        "Ding Ding",
+        "Times up!",
+        "appointment-soon"
+    )
+    n.show()
+
 
 def parse_time(args):
     """Figure out the number of seconds to wait"""
@@ -121,8 +131,10 @@ def main(args=sys.argv[1:]):
         seconds = parse_time(check_input(args))
     except InvalidArguments as e:
         sys.exit(EXIT_MSG.format(e))
+    notify2.init('ding ding')
     print_time(seconds)
     beep(seconds)
+    vbeep(seconds)
 
 if __name__ == '__main__':
     main()

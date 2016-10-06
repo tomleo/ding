@@ -13,7 +13,11 @@ setup(
     version=get_version(),
     license='MIT',
     packages=find_packages(),
+    install_requires=[
+        'notify2',
+    ],
     entry_points = {
         "console_scripts": ['ding = ding.ding:main']
         },
     )
+
